@@ -1,0 +1,6 @@
+import AreaFinder from '../../components/AreaFinder';
+import {PageHeading,Cta} from '../../components/Sections';
+import {states} from '../../lib/site';
+import {zipRows} from '../../lib/zip';
+export const metadata={title:'Service areas — all states & ZIP codes',description:'Browse US cities and ZIP codes in all 50 states and the District of Columbia. Confirm service availability for your address.'};
+export default async function Areas({searchParams}){const params=await searchParams;const initialState=states.some(s=>s.code===params.state)?params.state:'';return <><PageHeading label="Service areas" title={<>Closer to home.<br/><span>Start with your ZIP.</span></>} description="Explore every state, find your city, and request service for your address. Local technician availability is confirmed separately."/><section className="wrap areas-page"><div className="directory-stats"><span><b>50</b> U.S. states</span><span><b>+ D.C.</b> District of Columbia</span><span><b>{zipRows.length.toLocaleString()}</b> postal ZIPs in this dataset</span></div><AreaFinder full initialState={initialState}/><details className="all-state-list"><summary>View all state names</summary><div>{states.map(s=><span key={s.code}><b>{s.code}</b> {s.name}</span>)}</div></details></section><Cta/></>}

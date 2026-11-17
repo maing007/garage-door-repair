@@ -1,0 +1,4 @@
+import {PageHeading,Services,Cta,Eyebrow} from '../../components/Sections';
+import {PhoneButton} from '../../components/SiteShell';
+export const metadata={title:'Garage door services'};
+export default function ServicesPage(){return <><PageHeading label="Our services" title={<>One less thing<br/><span>to worry about.</span></>} description="From a stuck door to a fresh installation, explore practical help for residential and commercial garage doors."/><section className="wrap services-page"><Services all/><div className="service-safety"><div><Eyebrow>NOT SURE WHERE TO START?</Eyebrow><h3>Tell us what your door is doing.</h3><p>Keep clear of broken springs, loose cables, and uneven doors. Avoid forcing movement or attempting high-tension repairs yourself.</p></div><PhoneButton/></div></section><Cta/></>}

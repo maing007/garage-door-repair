@@ -1,0 +1,9 @@
+import Link from 'next/link';
+import {notFound} from 'next/navigation';
+import {posts} from '../../../lib/posts';
+import {Cta,Eyebrow} from '../../../components/Sections';
+import {BookButton} from '../../../components/SiteShell';
+import {ArrowLeft,ArrowUpRight} from 'lucide-react';
+export function generateStaticParams(){return posts.map(p=>({slug:p.slug}))}
+export async function generateMetadata({params}){const {slug}=await params;const p=posts.find(p=>p.slug===slug);return {title:p?.title||'Article not found',description:p?.excerpt}}
+export default async function Article({params}){const {slug}=await params;const p=posts.find(p=>p.slug===slug);if(!p)notFound();return <><article className="article wrap"><Link className="back-link" href="/blog"><ArrowLeft size={16}/> Back to the journal</Link><div className="article-heading"><Eyebrow>{p.category.toUpperCase()} · {p.read.toUpperCase()}</Eyebrow><h1>{p.title}</h1><p>{p.excerpt}</p><span className="article-byline">The Up & Over homeowner journal · November 17, 2026</span></div><img className="article-image" src={p.image} alt="Garage door service professional helping a homeowner with a door inspection"/><div className="article-layout"><aside><span>IN THIS GUIDE</span>{p.sections.map(([h],i)=><a key={h} href={'#section-'+i}>{h}</a>)}<div><p>Need a hand with your door?</p><BookButton className="inline-link">Request a quote</BookButton></div></aside><div className="article-body">{p.sections.map(([h,b],i)=><section id={'section-'+i} key={h}><h2>{h}</h2><p>{b}</p></section>)}<div className="article-note">General homeowner information, not a substitute for an on-site assessment. Do not adjust high-tension springs, cables, or brackets yourself.</div><Link className="text-link" href="/blog">More homeowner guides <ArrowUpRight size={16}/></Link></div></div></article><Cta/></>}

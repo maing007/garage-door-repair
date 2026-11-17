@@ -1,0 +1,12 @@
+import Link from 'next/link';
+import {ArrowUpRight,Phone,ShieldCheck,Wrench,Settings2,Radio,Cog,House,Building2,Check} from 'lucide-react';
+import {services,site} from '../lib/site';
+import {posts} from '../lib/posts';
+import {BookButton,PhoneButton} from './SiteShell';
+const icons={Wrench,Settings2,Radio,Cog,House,Building2};
+export function Eyebrow({children}){return <div className="eyebrow"><span className="line"/>{children}</div>}
+export function Services({all=false}){return <div className="service-grid">{services.slice(0,all?6:3).map((s,i)=>{const Icon=icons[s.icon];return <article id={s.slug} className="service-card" key={s.slug}><div className="service-head"><span className="service-icon dimensional"><Icon size={28}/></span><span className="number">0{i+1} /</span></div><span className="service-tag">{s.tag}</span><h3>{s.title}</h3><p>{s.desc}</p><BookButton className="service-action" service={s.title}>Request this service</BookButton></article>})}</div>}
+export function Cta(){return <section className="contact wrap"><div><div className="eyebrow">A STUCK DOOR SHOULDN’T STOP YOUR DAY</div><h2>Let’s get you<br/>back on track.</h2><p>Real conversations. Clear options. A smoother way forward.</p></div><div className="contact-actions"><PhoneButton className="button cream"/><BookButton className="contact-quote">Or request a quote online</BookButton></div><div className="contact-lines"/></section>}
+export function JournalCards(){return <div className="journal-grid">{posts.map((p,i)=><Link href={'/blog/'+p.slug} className="journal-card" key={p.slug}><div className={'journal-image crop-'+i}><img src={p.image} alt={i===1?'Service technicians discussing garage door maintenance with a homeowner':'Technician inspecting a sectional garage door beside a homeowner'}/><span>{p.category}</span></div><div className="journal-meta">HOMEOWNER JOURNAL <span>{p.read}</span></div><h3>{p.title}</h3><p>{p.excerpt}</p><span className="journal-link">Read the guide <ArrowUpRight size={17}/></span></Link>)}</div>}
+export function PageHeading({label,title,description}){return <section className="page-heading wrap"><div className="breadcrumb"><Link href="/">Home</Link><span>/</span>{label}</div><Eyebrow>{label.toUpperCase()}</Eyebrow><h1>{title}</h1>{description&&<p>{description}</p>}</section>}
+export function GarageObject(){return <div className="object-image-stage"><img src="/repair-3d.png" width="1536" height="1024" alt="3D illustration of a friendly garage door technician holding an orange toolbox beside a sage-green door" loading="lazy"/></div>}
